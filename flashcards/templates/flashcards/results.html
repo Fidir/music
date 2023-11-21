@@ -1,0 +1,18 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'flashcards/style.css' %}">
+
+<h1>{{ question.question_text }}</h1>
+
+<ul>
+{% for choice in question.choice_set.all %}
+    <li>{{ choice.choice_text }} -- {{ choice.votes }} time{{ choice.votes|pluralize }}
+        {% if choice.right_answer %}
+            {% if choice.pk == choiceid %} ✅{% else %} ⬅️{% endif %}
+        {% else %}
+            {% if choice.pk == choiceid %} ❌{% endif %}
+        {% endif %}
+    </li>
+{% endfor %}
+</ul>
+
+<a href="{% url 'index' %}" class="button"> OK </a>
